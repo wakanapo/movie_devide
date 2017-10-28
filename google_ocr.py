@@ -6,7 +6,10 @@ import os
 import requests
 
 def detect_text(dirId, imId):
-    cache = "json{0:02d}".format(dirId) + "/image{}.json".format(imId)
+    jsondir = "json{0:02d}".format(dirId)
+    if not os.path.isdir(jsondir):
+        os.makedirs(jsondir)
+    cache = jsondir + "/image{}.json".format(imId)
     if os.path.isfile(cache):
         with open(cache, 'r') as f:
             result = json.load(f)
